@@ -8,7 +8,7 @@ import json
 from collections import OrderedDict
 
 
-url = 'https://haemukja.com/main#'
+url = 'https://haemukja.com/refrigerator'
 html = urllib.request.urlopen(url, context=ssl._create_unverified_context()).read()
 soup = BeautifulSoup(html, 'html.parser')
 
