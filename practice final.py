@@ -14,4 +14,22 @@ soup = BeautifulSoup(html, 'html.parser')
 
 for anchor in soup.find_all("a", class_="call_recipe"):
     print(anchor.get_text())
+#rand = soup.find_all("a", class_="call_recipe")
+#print(rand)
+
+#li = soup.find("a", { "class" : "call_recipe"})
+#bi = li.find("strong")
+#print(bi)
+
+#li = soup.find("a", { "class" : "call_recipe"}).find("strong")
+#print(li.contents)
+
+#a = soup.find_all("a", class_="call_recipe")
+#b = a.findChildren("strong", recursive='False')
+
+#for a in b:
+#    print(a)
+
+#for anchor in soup.find_all("a", class_="call_recipe"):
+#    print(anchor.attrs['strong'])
 #print(url + anchor.attrs['href'])
