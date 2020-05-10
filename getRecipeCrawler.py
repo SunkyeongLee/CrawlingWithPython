@@ -25,7 +25,6 @@ class getRecipeCrawler:
         search_box.send_keys(ingredient)
         search_box.submit()
 
-    # 이거 해결하기
     def launch_soup(self):
         html = driver.page_source
         soup = BeautifulSoup(html, 'html.parser')
