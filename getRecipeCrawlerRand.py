@@ -2,8 +2,9 @@ import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+from random import randint
 
-class getRecipeCrawler:
+class getRecipeCrawlerRand:
     def __init__(self):
         self.url = 'https://www.haemukja.com/'
         self.nextPage = [
@@ -13,6 +14,7 @@ class getRecipeCrawler:
             '//*[@id="content"]/section/div[2]/div/div[2]/a[7]'
             ]
         self.location = 'a.call_recipe > strong'
+        self.ingKey = ['감자', '양파', '옥수수', '마늘', '식빵']
 
     def launch_crawler(self):
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -30,7 +32,7 @@ class getRecipeCrawler:
 
     def get_recipe(self, element):
         html = self.driver.page_source
-        self.soup = BeautifsulSoup(html, 'html.parser')
+        self.soup = BeautifulSoup(html, 'html.parser')
         recipeName = self.soup.select(element)
         for recipe in recipeName:
             print(recipe.text)
@@ -38,16 +40,15 @@ class getRecipeCrawler:
     def run(self):
         self.launch_crawler()
         
-        key = input("재료를 입력하세요: ")
+        key = self.ingKey[randint(0, len(self.ingKey)-1)]
         self.find_recipe(key)
 
         for i in range(len(self.nextPage)):
             self.get_recipe(self.location)
-            self.find_click(self.nextPage[i])
         
         time.sleep(2)
         self.driver.quit()
 
 if __name__ == "__main__":
-    crawler = getRecipeCrawler()
+    crawler = getRecipeCrawlerRand()
     crawler.run()

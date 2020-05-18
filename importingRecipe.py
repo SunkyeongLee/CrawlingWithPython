@@ -1,7 +1,16 @@
 import time
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
+import requests
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+import django
+django.setup()
+
+from api.models import Recipe
+
+
 
 class getRecipeCrawler:
     def __init__(self):
@@ -33,17 +42,24 @@ class getRecipeCrawler:
         self.soup = BeautifsulSoup(html, 'html.parser')
         recipeName = self.soup.select(element)
         for recipe in recipeName:
-            print(recipe.text)
+            return recipe.text
 
     def run(self):
         self.launch_crawler()
         
-        key = input("재료를 입력하세요: ")
+        key = input("Enter ingredient: ")
         self.find_recipe(key)
 
         for i in range(len(self.nextPage)):
-            self.get_recipe(self.location)
+            recipe = self.get_recipe(self.location)
             self.find_click(self.nextPage[i])
+
+            recipe_obj = {
+                recipe_ID: i,
+                recipe: recipe,
+                ingredient: key
+            }
+            print(recipe)
         
         time.sleep(2)
         self.driver.quit()
