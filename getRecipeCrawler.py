@@ -30,7 +30,7 @@ class getRecipeCrawler:
 
     def get_recipe(self, element):
         html = self.driver.page_source
-        self.soup = BeautifsulSoup(html, 'html.parser')
+        self.soup = BeautifulSoup(html, 'html.parser')
         recipeName = self.soup.select(element)
         for recipe in recipeName:
             print(recipe.text)
