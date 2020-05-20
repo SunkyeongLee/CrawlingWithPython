@@ -10,8 +10,6 @@ django.setup()
 
 from api.models import Recipe
 
-
-
 class getRecipeCrawler:
     def __init__(self):
         self.url = 'https://www.haemukja.com/'
