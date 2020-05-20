@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Anchor extraction from HTML document
+# convert text into list
 import urllib.request
 import urllib.parse
 import ssl
@@ -12,24 +13,18 @@ url = baseUrl + urllib.parse.quote_plus(plusUrl)
 html = urllib.request.urlopen(url, context=ssl._create_unverified_context()).read()
 soup = BeautifulSoup(html, 'html.parser')
 
-for anchor in soup.find_all("a", class_="call_recipe"):
+result = []
+i = 0
+for anchor in soup.select('a.call_recipe > strong'):
     print(anchor.get_text())
-#rand = soup.find_all("a", class_="call_recipe")
-#print(rand)
+    i += 1
 
-#li = soup.find("a", { "class" : "call_recipe"})
-#bi = li.find("strong")
-#print(bi)
+    recipe_obj = {
+    'recipe_ID': i,
+    'recipe_Name': anchor.get_text(),
+    'ingredient_Key': plusUrl
+    }
 
-#li = soup.find("a", { "class" : "call_recipe"}).find("strong")
-#print(li.contents)
-
-#a = soup.find_all("a", class_="call_recipe")
-#b = a.findChildren("strong", recursive='False')
-
-#for a in b:
-#    print(a)
-
-#for anchor in soup.find_all("a", class_="call_recipe"):
-#    print(anchor.attrs['strong'])
-#print(url + anchor.attrs['href'])
+    result.append(recipe_obj)
+    
+print(result)
