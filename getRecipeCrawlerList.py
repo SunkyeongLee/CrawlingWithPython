@@ -18,7 +18,7 @@ class getRecipeCrawler:
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         self.driver.get(self.url)
 
-    def find_click(self, xpath, sleep_interval=1):
+    def find_click(self, xpath, sleep_interval=0.1):
         btn = self.driver.find_element_by_xpath(xpath)
         btn.click()
         time.sleep(sleep_interval)
